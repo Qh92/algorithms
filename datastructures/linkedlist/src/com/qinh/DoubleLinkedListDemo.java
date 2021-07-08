@@ -10,7 +10,7 @@ package com.qinh;
 public class DoubleLinkedListDemo {
     public static void main(String[] args) {
         System.out.println("双向链表的测试");
-        //先创捷节点
+        //先创建节点
         HeroNode2 hero1 = new HeroNode2(1, "宋江", "及时雨");
         HeroNode2 hero2 = new HeroNode2(2, "卢俊义", "玉麒麟");
         HeroNode2 hero3 = new HeroNode2(3, "吴用", "智多星");
