@@ -39,7 +39,8 @@ import java.util.*;
  */
 public class HuffmanCode {
     public static void main(String[] args){
-        String s = "i like like like java do you like a java";
+        //String s = "i like like like java do you like a java";
+        String s = "hello world";
         byte[] content = s.getBytes();
         //System.out.println(content.length);
         //List<Node> nodes = getNodes(content);
@@ -54,6 +55,9 @@ public class HuffmanCode {
         //System.out.println(Arrays.toString(huffmanCodeBytes));
         byte[] huffmanCodeBytes = huffmanZip(content);
         System.out.println(Arrays.toString(huffmanCodeBytes));
+
+        byte[] sourceBytes = decode(huffmanCodes, huffmanCodeBytes);
+        System.out.println("原来的字符串: " + new String(sourceBytes));
     }
 
     /**
@@ -254,6 +258,65 @@ public class HuffmanCode {
         } else {
             return str;
         }
+    }
+
+    /**
+     *
+     * @param huffmanCodes 赫夫曼编码表map
+     * @param huffmanBytes 赫夫曼编码得到的字节数组
+     * @return 就是原来的字符串对应的数组
+     */
+    private static byte[] decode(Map<Byte,String> huffmanCodes,byte[] huffmanBytes){
+        //先得到huffmanBytes对应的二进制的字符串
+        StringBuilder stringBuilder = new StringBuilder();
+        //将byte数组转成二进制的字符串
+        for (int i = 0; i < huffmanBytes.length; i++) {
+            byte b = huffmanBytes[i];
+            //判断是不是最后一个字节
+            boolean flag = (i == huffmanBytes.length - 1);
+            stringBuilder.append(byteToBitString(!flag, b));
+        }
+
+        /*
+        把字符串按照指定的赫夫曼编码进行解码
+        需要把赫夫曼码表进行调换，因为反向查询 a->100 100->a
+         */
+        Map<String,Byte> map = new HashMap<>();
+        for (Map.Entry<Byte,String> entry : huffmanCodes.entrySet()){
+            map.put(entry.getValue(), entry.getKey());
+        }
+
+        //创建一个集合，存放byte
+        List<Byte> list = new ArrayList<>();
+        //i可以理解成就是索引，扫描stringBuilder
+        for (int i = 0; i < stringBuilder.length();) {
+            //检索的小的计数器
+            int count = 1;
+            boolean flag = true;
+            Byte b = null;
+            while (flag){
+                //递增的取出key,i不动，让count移动，指定匹配到的一个字符
+                String key = stringBuilder.substring(i, i + count);
+                b = map.get(key);
+                //没有匹配到
+                if (b == null){
+                    count++;
+                }else {
+                    flag = false;
+                }
+            }
+            list.add(b);
+            //i移动到count位置
+            i += count;
+        }
+        //当for循环结束后，list中就存放了所有的字符 i like like like java do you like a java
+        //把list中的数据放入到byte[]并返回
+
+        byte[] b = new byte[list.size()];
+        for (int i = 0; i < b.length; i++) {
+            b[i] = list.get(i);
+        }
+        return b;
     }
 
 
