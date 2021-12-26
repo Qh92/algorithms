@@ -1,4 +1,4 @@
-package com.qinh;
+package com.qinh.normalsort;
 
 import java.util.Arrays;
 

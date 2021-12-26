@@ -1,4 +1,4 @@
-package com.qinh;
+package com.qinh.normalsort;
 
 /**
  * 堆排序,时间复杂度:O(nlogn)
