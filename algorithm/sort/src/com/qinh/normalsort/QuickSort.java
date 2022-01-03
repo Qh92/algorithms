@@ -1,5 +1,7 @@
 package com.qinh.normalsort;
 
+import com.qinh.util.ComparatorUtils;
+
 import java.util.Arrays;
 
 /**
@@ -13,7 +15,7 @@ public class QuickSort {
     public static void main(String[] args) {
         //int[] arr = {-9,78,0,23,-567,70,2,4,-7};
         //int[] arr = {-9,78,0,23,-567,70};
-        int[] arr = new int[8000000];
+        /*int[] arr = new int[8000000];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (int) (Math.random() * 800000);
         }
@@ -24,7 +26,24 @@ public class QuickSort {
         //System.out.println(Arrays.toString(arr));
         System.out.println("排序执行时间: " + (end-start) + "ms");
         System.out.println("排序执行时间: " + ((end-start) / 1000) + "s");
-        //System.out.println(Arrays.toString(arr));
+        //System.out.println(Arrays.toString(arr));*/
+
+        //对数器测试
+        int testTime = 500000;
+        int maxSize = 100;
+        int maxValue = 100;
+        boolean succeed = true;
+        for (int i = 0; i < testTime; i++) {
+            int[] arr1 = ComparatorUtils.generateRandomArray(maxSize, maxValue);
+            int[] arr2 = ComparatorUtils.copyArray(arr1);
+            quickSort2(arr1,0,arr1.length - 1);
+            ComparatorUtils.comparator(arr2);
+            if (!ComparatorUtils.isEqual(arr1,arr2)) {
+                succeed = false;
+                break;
+            }
+        }
+        System.out.println(succeed ? "Nice!" : "Fail!!");
 
     }
 
@@ -130,7 +149,7 @@ public class QuickSort {
 
 class Solution {
     public static void main(String[] args) {
-        int[] arr = new int[8000000];
+        /*int[] arr = new int[8000000];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = (int) (Math.random() * arr.length);
         }
@@ -139,7 +158,23 @@ class Solution {
         quickSort(arr);
         long end = System.currentTimeMillis();
         System.out.println("排序执行时间: " + (end-start) + "ms");
-        System.out.println("排序执行时间: " + ((end-start) / 1000) + "s");
+        System.out.println("排序执行时间: " + ((end-start) / 1000) + "s");*/
+        //对数器测试
+        int testTime = 500000;
+        int maxSize = 100;
+        int maxValue = 100;
+        boolean succeed = true;
+        for (int i = 0; i < testTime; i++) {
+            int[] arr1 = ComparatorUtils.generateRandomArray(maxSize, maxValue);
+            int[] arr2 = ComparatorUtils.copyArray(arr1);
+            quickSort(arr1);
+            ComparatorUtils.comparator(arr2);
+            if (!ComparatorUtils.isEqual(arr1,arr2)) {
+                succeed = false;
+                break;
+            }
+        }
+        System.out.println(succeed ? "Nice!" : "Fail!!");
     }
 
     public static void quickSort(int[] arr){

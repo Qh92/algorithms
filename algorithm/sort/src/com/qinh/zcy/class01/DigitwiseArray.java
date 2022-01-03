@@ -1,4 +1,4 @@
-package com.qinh.exer;
+package com.qinh.zcy.class01;
 
 /**
  * 1、给定一个整型数组，
